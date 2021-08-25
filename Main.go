@@ -26,7 +26,6 @@ func main() {
 		usage()
 		os.Exit(1)
 	}
-
 	if *context != "" {
 		err := switchContext(*context, *kubeconfig)
 		panic(err)
@@ -65,7 +64,7 @@ func switchNamespace(namespace, kubeconfig string) error {
 	}
 	context := config.Contexts[config.CurrentContext]
 	if context == nil {
-		return fmt.Errorf("context \"%s\" does not exist", config.CurrentContext)
+		return fmt.Errorf("context '%s' does not exist", config.CurrentContext)
 	}
 	context.Namespace = namespace
 	if err := writeConfig(config); err != nil {
@@ -75,8 +74,8 @@ func switchNamespace(namespace, kubeconfig string) error {
 	return nil
 }
 
-func readConfig(kubeconfigPath string) (api.Config, error) {
-	loadingRules := &clientcmd.ClientConfigLoadingRules{ExplicitPath: kubeconfigPath}
+func readConfig(kubeconfig string) (api.Config, error) {
+	loadingRules := &clientcmd.ClientConfigLoadingRules{ExplicitPath: kubeconfig}
 	configOverrides := &clientcmd.ConfigOverrides{}
 	kubeConfig := clientcmd.NewNonInteractiveDeferredLoadingClientConfig(loadingRules, configOverrides)
 	return kubeConfig.RawConfig()
