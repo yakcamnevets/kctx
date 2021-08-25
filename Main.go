@@ -48,13 +48,13 @@ func switchContext(context, kubeconfig string) error {
 		return fmt.Errorf("error reading kubeconfig: %w", err)
 	}
 	if config.Contexts[context] == nil {
-		return fmt.Errorf("context %s doesn't exist", context)
+		return fmt.Errorf("context '%s' does not exist", context)
 	}
 	config.CurrentContext = context
 	if err := writeConfig(config); err != nil {
 		return fmt.Errorf("error writing kubeconfig: %w", err)
 	}
-	fmt.Printf("switched to context \"%s\"", context)
+	fmt.Printf("switched to context '%s'", context)
 	return nil
 }
 
@@ -63,11 +63,15 @@ func switchNamespace(namespace, kubeconfig string) error {
 	if err != nil {
 		return fmt.Errorf("error reading kubeconfig: %w", err)
 	}
-	config.Contexts[config.CurrentContext].Namespace = namespace
+	context := config.Contexts[config.CurrentContext]
+	if context == nil {
+		return fmt.Errorf("context \"%s\" does not exist", config.CurrentContext)
+	}
+	context.Namespace = namespace
 	if err := writeConfig(config); err != nil {
 		return fmt.Errorf("error writing kubeconfig: %w", err)
 	}
-	fmt.Printf("switched to namespace \"%s\"", namespace)
+	fmt.Printf("switched to namespace '%s'", namespace)
 	return nil
 }
 
