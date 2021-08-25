@@ -1,3 +1,5 @@
+A command line utility for switching Kubernetes contexts and namespaces with ease.
+
 ```shell
 usage of kctx:
 switches kubernetes contexts and namespaces
