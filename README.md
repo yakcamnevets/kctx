@@ -6,7 +6,9 @@ switches kubernetes contexts and namespaces
   -c context
     	(optional) target context
   -k path
-    	(optional) absolute path to the kubeconfig file (default "/home/user/.kube/config")
+    	(optional) absolute path to the configPath file (default "/Users/Steven.Mackay/.kube/config")
   -n namespace
     	(optional) target namespace
+  -o	(optional) output the current context and namespace
+  -v	(optional) verbose output
 ```
